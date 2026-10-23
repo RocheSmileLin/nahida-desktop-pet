@@ -1,0 +1,40 @@
+# ============ 桌宠仓库（E:\NXD\NXD桌宠）============
+# 只入库【代码 / 配置 / 文档 / 前端】；模型、贴图、动作、备份一律不入库（可重建）
+
+# ---- 模型与素材（体积大，或从源重建）----
+_3d/model/
+_3d/motion/
+_3d/images/
+*.blend
+*.blend1
+*.pmx
+*.pmx.bak*
+*.zprj
+*.zpac
+*.obj
+*.fbx
+*.mtl
+*.vmd
+*.exr
+*.tga
+*.bmp
+
+# ---- 备份与临时 ----
+_3d/_backup/
+_3d/备份/
+_3d/temp_import/
+_3d/临时文件/
+_backup/
+*.bak
+*.bak-*
+*.crash.txt
+__pycache__/
+*.pyc
+
+# ---- 系统 / 快捷方式 ----
+Thumbs.db
+desktop.ini
+*.lnk
+
+# ---- 旧仓库历史备份（594MB，含别的项目）----
+.git.old/

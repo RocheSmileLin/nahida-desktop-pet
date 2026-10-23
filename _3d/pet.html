@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>纳西妲桌宠</title>
+<!-- ★★ 贴图预加载（用户要求：素材齐了才显现 → 那就让它早点开始下）
+     ⚠️ MMDLoader 不等贴图下完就回调 onLoad，贴图会在显示之后一张张才到位
+        → 这里让浏览器【一打开页面就并行下载】，等 PMX 解析完时贴图已经在缓存里了 ✅
+     ⚠️ 换模型/换贴图后这清单要同步（PMX 里的贴图名见 model/纳西妲.pmx）-->
+<link rel="preload" as="image" href="model/tex/髮1.png">
+<link rel="preload" as="image" href="model/tex/体1.png">
+<link rel="preload" as="image" href="model/tex/颜.png">
+<link rel="preload" as="image" href="model/tex/spa_h.png">
+<link rel="preload" as="image" href="model/tex/neck_nahida.png">
+<link rel="preload" as="image" href="model/tex/body_leotard_nahida_skin_arm.png">
+<link rel="preload" as="image" href="model/tex/toon_defo.bmp">
+<link rel="preload" as="image" href="model/tex/toon_skin_eula_35.png">
+<link rel="preload" as="image" href="model/tex/hair_s.bmp">
+<link rel="preload" as="image" href="model/tex/skin.bmp">
+<link rel="preload" as="image" href="model/tex/hair.bmp">
+<link rel="stylesheet" href="css/pet.css">
+
+<!-- 经典脚本版（QtWebEngine 内核是 Chromium 87，不支持 importmap）
+     顺序不能错：three → mmdparser → MMDToonShader → MMDLoader → CCDIKSolver → MMDAnimationHelper -->
+<script src="lib/three.min.js"></script>
+<script src="lib/mmdparser.min.js"></script>
+<script src="lib/MMDToonShader.js"></script>
+<script src="lib/TGALoader.js"></script>
+<script src="lib/MMDLoader.js"></script>
+<script src="lib/CCDIKSolver.js"></script>
+<script src="lib/MMDAnimationHelper.js"></script>
+<!-- ★ 物理：MMDPhysics 需要全局 Ammo（Bullet 的 JS 版）；MMDPhysics.js 要用 THREE.MMDPhysics -->
+<script src="lib/ammo.js"></script>
+<script src="lib/MMDPhysics.js"></script>
+<!-- ★ 动作清单单一数据源（与 viewer.html 共用）✅ -->
+<script src="motions.js"></script>
+
+<!-- 共享模块（与 viewer.html 共用）-->
+<script src="js/shared/namespace.js"></script>
+<script src="js/shared/photo-grade.js"></script>
+<!-- 启动前置：Ammo 适配、物理/渲染旋钮、拖动惯性、逐动作布料冻结 -->
+<script src="js/pet/00-bootstrap.js"></script>
+</head>
+<body>
+<div id="menu"></div>
+
+<!-- ============================================================================
+     桌宠页面脚本 —— 按职责拆分（经典 script，加载顺序不可调换）
+     01. 基础环境 / 调色 / 灯光 / 默认设置
+     02. 三渲二
+     03. 设置应用 / 部件可见性 / 设置轮询
+     04. 动作系统（VMD 装载、中转、骨骼层）
+     05. 表情 / 视线 / 切动作入口
+     06. 模型加载 / 相机取景
+     07. 交互（鼠标 / 拖动 / 命中位图 / 右键菜单 / 标题消息）
+     08. 渲染就绪闸门（衣物优先）
+     09. 主循环
+     ============================================================================ -->
+<script src="js/pet/10-scene.js"></script>
+<script src="js/pet/20-toon.js"></script>
+<script src="js/pet/30-settings.js"></script>
+<script src="js/pet/40-motions.js"></script>
+<script src="js/pet/50-expressions.js"></script>
+<script src="js/pet/60-model.js"></script>
+<script src="js/pet/70-interaction.js"></script>
+<script src="js/pet/80-assets.js"></script>
+<script src="js/pet/90-loop.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+ "name": "猫娘套装",
+ "label": "猫娘套装",
+ "category": "👖 下装",
+ "cloth": true,
+ "verts": 16677,
+ "faces": 24766,
+ "materials": [
+  {
+   "mat": "sweater_Copy_1_FRONT_1630.001",
+   "faces": 212
+  },
+  {
+   "mat": "sweater正面_FRONT_1685",
+   "faces": 16181
+  },
+  {
+   "mat": "爪子口袋_FRONT_1674",
+   "faces": 168
+  },
+  {
+   "mat": "sweater_FRONT_1620.001",
+   "faces": 3510
+  },
+  {
+   "mat": "Material1932.001",
+   "faces": 4695
+  }
+ ],
+ "z_mm": [
+  420.1,
+  865.6
+ ],
+ "built_at": "5.2.2 LTS",
+ "config": "猫娘服装.json"
+}

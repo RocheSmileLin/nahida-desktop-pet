@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  :root { --line: var(--border, #2b3340); --dim: var(--muted-foreground, #8b949e); }
+  .wrap { color: var(--foreground, #e6edf3); width: 700px; }
+  h1 { font-size: 19px; margin: 0 0 12px; font-weight: 700; }
+  h2 { font-size: 15px; margin: 18px 0 8px; color: var(--accent, #7ee787); font-weight: 700; }
+  .row { display: flex; gap: 14px; align-items: stretch; flex-wrap: wrap; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--card, #12161c); }
+  .cap { font-size: 12.5px; color: var(--dim); margin-top: 6px; line-height: 1.5; }
+  .cap b { color: var(--foreground); }
+  svg { display: block; }
+  .flow { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; }
+  .step { border: 1px solid var(--line); border-radius: 10px; padding: 8px 9px; background: var(--card, #12161c); width: 122px; }
+  .step .n { font-size: 11.5px; color: var(--dim); }
+  .step .k { font-size: 14.5px; font-weight: 700; color: var(--accent, #7ee787); margin: 2px 0 3px; }
+  .step .d { font-size: 12px; line-height: 1.45; color: var(--foreground); }
+  .arw { color: var(--dim); font-size: 17px; }
+  table { border-collapse: collapse; font-size: 13.5px; width: 100%; }
+  td { border-bottom: 1px solid var(--line); padding: 5px 8px 5px 0; vertical-align: top; }
+  td.k { white-space: nowrap; font-weight: 700; color: var(--accent, #7ee787); width: 92px; }
+  td.v { color: var(--dim); }
+  .note { font-size: 12.5px; color: var(--dim); line-height: 1.6; margin-top: 6px; }
+  .warn { border-left: 3px solid #d29922; padding-left: 9px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Blender 做衣服 · 一图看懂</h1>
+
+  <h2>① 网格三要素 —— 面就是"布"</h2>
+  <div class="row">
+    <div class="card">
+      <svg width="120" height="86" viewBox="0 0 120 86">
+        <circle cx="60" cy="43" r="5" fill="currentColor"/>
+        <text x="60" y="70" font-size="12" fill="currentColor" text-anchor="middle">顶点（点）</text>
+        <text x="60" y="82" font-size="10.5" fill="#8b949e" text-anchor="middle">按 1 选择</text>
+      </svg>
+    </div>
+    <div class="card">
+      <svg width="140" height="86" viewBox="0 0 140 86">
+        <line x1="30" y1="43" x2="110" y2="43" stroke="currentColor" stroke-width="3"/>
+        <circle cx="30" cy="43" r="4" fill="currentColor"/>
+        <circle cx="110" cy="43" r="4" fill="currentColor"/>
+        <text x="70" y="70" font-size="12" fill="currentColor" text-anchor="middle">边</text>
+        <text x="70" y="82" font-size="10.5" fill="#8b949e" text-anchor="middle">按 2 选择</text>
+      </svg>
+    </div>
+    <div class="card">
+      <svg width="140" height="86" viewBox="0 0 140 86">
+        <rect x="38" y="14" width="64" height="44" fill="none" stroke="currentColor" stroke-width="3"/>
+        <text x="70" y="70" font-size="12" fill="currentColor" text-anchor="middle">面</text>
+        <text x="70" y="82" font-size="10.5" fill="#8b949e" text-anchor="middle">按 3 选择 ← 做衣服用这个</text>
+      </svg>
+    </div>
+  </div>
+
+  <h2>② 做一件衣服 = 这 5 步</h2>
+  <div class="flow">
+    <div class="step"><div class="n">第 1 步</div><div class="k">Shift+A</div><div class="d">加"圆柱体"<br>F9 改：顶点24 / 半径0.10 / 深度0.32</div></div>
+    <div class="arw">›</div>
+    <div class="step"><div class="n">第 2 步</div><div class="k">Ctrl+R</div><div class="d">加 3~4 圈环线<br>（没环就没法局部塑形）</div></div>
+    <div class="arw">›</div>
+    <div class="step"><div class="n">第 3 步</div><div class="k">S …</div><div class="d">逐圈缩：肩0.78 → 胸0.88 → 腰0.95 → 下摆1.30<br>再 S Y 0.85 压扁</div></div>
+    <div class="arw">›</div>
+    <div class="step"><div class="n">第 4 步</div><div class="k">X → 面</div><div class="d">剪掉顶盖=领口<br>Alt+左键 选边界 → S Z 0 变直</div></div>
+    <div class="arw">›</div>
+    <div class="step"><div class="n">第 5 步</div><div class="k">实体化</div><div class="d">修改器 → 生成 → 实体化<br>厚度 0.004 · 偏移 1</div></div>
+  </div>
+  <div class="note">加完这 5 步就是一件能看的衣服；想让它"跟着人动"，还要补 <b>骨架修改器 + 数据传递权重 + Ctrl+P 父级</b>。</div>
+
+  <h2>③ 只有 6 个键要记</h2>
+  <table>
+    <tr><td class="k">Tab</td><td>切"物体模式 / 编辑模式" <span style="color:#d29922">—— 动不了先按它</span></td></tr>
+    <tr><td class="k">G / S / R</td><td>移动 / 缩放 / 旋转；后接 <b>X/Y/Z</b> 锁轴，或直接打数字（如 <b>S 1.2</b>）</td></tr>
+    <tr><td class="k">S Z 0</td><td>沿 Z 压平 ⇒ <b>波浪下摆立刻变直线</b></td></tr>
+    <tr><td class="k">E</td><td>挤出：拉出一片新面（做袖筒、裙摆）</td></tr>
+    <tr><td class="k">Ctrl+R</td><td>加环线：形状要顺全靠它</td></tr>
+    <tr><td class="k">Alt+左键</td><td>选一整圈（选下摆/袖口/领口的边界环）</td></tr>
+    <tr><td class="k">O</td><td>比例编辑：像拽橡皮一样柔和变形</td></tr>
+    <tr><td class="k">Ctrl+Z / Ctrl+S</td><td>撤销 / 保存 —— <b>每做对一步就保存</b></td></tr>
+  </table>
+
+  <h2>④ 你这具模型的尺寸（建模按这个来，单位：米）</h2>
+  <table>
+    <tr><td class="k">下摆 / 领口 / 袖口</td><td>z = <b>0.565</b> / <b>0.875</b> / <b>0.80</b></td></tr>
+    <tr><td class="k">半宽（半径）</td><td>肩 0.063 · 胸 0.066 · 腰 0.080 · 胯 0.106（宽松再加 0.02~0.03）</td></tr>
+    <tr><td class="k">单臂</td><td>上臂围 24.8cm（半径约 0.04），袖口 z = 0.80</td></tr>
+    <tr><td class="k">朝向 / 左右</td><td>面朝 <b>−Y</b>；<b>左 = +X</b></td></tr>
+  </table>
+
+  <h2>⑤ 两条铁律</h2>
+  <div class="note warn">
+    ① 材质里的贴图节点必须改名成 <b>mmd_base_tex</b>（不然桌宠里那块是纯白）。<br>
+    ② 材质名 = 桌宠开关名；加了新衣服记得<b>告诉我</b>去改 settings.html 的分组表，否则按钮点了没反应。
+  </div>
+</div>
+</body>
+</html>

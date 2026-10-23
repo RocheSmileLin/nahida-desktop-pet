@@ -1,0 +1,23 @@
+{
+  "_说明": "深海JK 的配置模板。导出快照 OBJ 到 source 那个路径后，直接跑：python tools/add_part.py -c tools/parts/深海JK.json --apply",
+  "name": "深海JK",
+  "label": "深海JK制服",
+  "category": "👗 连衣裙",
+  "source": "E:/Marvelous Designer/avatar_naxida/深海JK.obj",
+  "source_type": "obj",
+  "arm": "纳西妲_arm",
+  "material_prefix": "JK-",
+  "axis": { "forward": "NEGATIVE_Z", "up": "Y", "scale": 0.001 },
+  "offset": { "mode": "fixed", "z_mm": 77.06 },
+  "materials": { "from_mtl": true },
+  "uv": {
+    "default": { "mode": "keep" },
+    "rules": []
+  },
+  "weights": {
+    "mode": "skin",
+    "max_bones": 4,
+    "smooth": { "z_max": 0.70, "radius_mm": 12, "rounds": 3 }
+  },
+  "cloth": true
+}

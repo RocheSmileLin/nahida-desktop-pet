@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>人物展示</title>
+<!-- ★ 贴图预加载（同 pet.html）：素材齐了才显现 ✅ -->
+<link rel="preload" as="image" href="model/tex/髮1.png">
+<link rel="preload" as="image" href="model/tex/体1.png">
+<link rel="preload" as="image" href="model/tex/颜.png">
+<link rel="preload" as="image" href="model/tex/spa_h.png">
+<link rel="preload" as="image" href="model/tex/neck_nahida.png">
+<link rel="preload" as="image" href="model/tex/body_leotard_nahida_skin_arm.png">
+<link rel="preload" as="image" href="model/tex/toon_defo.bmp">
+<link rel="preload" as="image" href="model/tex/toon_skin_eula_35.png">
+<link rel="preload" as="image" href="model/tex/hair_s.bmp">
+<link rel="preload" as="image" href="model/tex/skin.bmp">
+<link rel="preload" as="image" href="model/tex/hair.bmp">
+<link rel="stylesheet" href="css/viewer.css">
+<!-- 经典脚本版（顺序不能错，同 pet.html）—— 本页【不带物理】，所以不需要 ammo.js / MMDPhysics.js ✅ -->
+<script src="lib/three.min.js"></script>
+<script src="lib/mmdparser.min.js"></script>
+<script src="lib/MMDToonShader.js"></script>
+<script src="lib/TGALoader.js"></script>
+<script src="lib/MMDLoader.js"></script>
+<script src="lib/CCDIKSolver.js"></script>
+<script src="lib/MMDAnimationHelper.js"></script>
+<!-- ★ 动作清单单一数据源（与 pet.html 共用）✅ -->
+<script src="motions.js"></script>
+<script src="bone_sjis.js?v=20261014"></script>
+
+<!-- 共享模块（与 pet.html 共用）-->
+<script src="js/shared/namespace.js"></script>
+<script src="js/shared/photo-grade.js"></script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="tip">正在载入模型…</div>
+<div id="mode"></div>
+<div id="btns">
+  <span class="seg" id="seg-mode">
+    <button data-mode="render" title="贴图渲染（正常模式）">渲染</button>
+    <button data-mode="white" class="on" title="白模：所有材质变纯白、去掉贴图（看几何 / 剪影 / 缺口）">白模</button>
+    <button data-mode="wire" title="线框：白模 + 线框（看布线 / 面数）">线框</button>
+    <button data-mode="toon" title="三渲二（原神风）：彩色分段色阶 + 冷紫阴影">三渲二</button>
+  </span>
+  <button id="btn-reset" title="视角回到默认机位">复位视角</button>
+</div>
+<div id="hud">
+  <div id="hud-head"><b>操作提示</b><button id="hud-toggle" title="收起 / 展开">收起</button></div>
+  <div id="hud-body">
+    <div><b>滚轮</b> 缩放到鼠标处</div>
+    <div><b>中键拖动</b> 旋转视角</div>
+    <div><b>按住 Shift</b> + 移动鼠标 = 平移（可 X/Y/Z 锁轴向）</div>
+    <div><b>S</b> 缩放</div>
+    <div><b>← →</b> 逐帧　<b>空格</b> 播放 / 暂停</div>
+    <div><b>Esc</b> 取消</div>
+  </div>
+</div>
+<div id="mbar">
+  <select id="m-sel" title="选择动作（VMD）"></select>
+  <button id="m-first" title="回到第 0 帧">|◀</button>
+  <button id="m-prev" title="上一帧（←）">◀</button>
+  <button id="m-play" title="播放 / 暂停（空格）">▶ 播放</button>
+  <button id="m-next" title="下一帧（→）">▶</button>
+  <button id="m-last" title="跳到最后一帧">▶|</button>
+  <input type="range" id="m-range" min="0" max="0" value="0" step="1" title="拖动 = 自由调整进度">
+  <span id="m-label">帧 0 / 0</span>
+</div>
+
+<!-- ============================================================================
+     视口脚本 —— 按职责拆分（经典 script，加载顺序不可调换；DOM 已在上面）
+     10. 基础环境 / 调色 / 灯光
+     20. 世界环境 / 轨道相机
+     30. 模型加载
+     40. 表情 / 视线 / 复位
+     50. 动作系统 / vwr API
+     60. 入场闸门 / 部件显隐
+     70. 设置同步
+     80. 输入
+     90. 渲染模式 / 三渲二
+     99. 主循环
+     ============================================================================ -->
+<script src="js/viewer/10-scene.js"></script>
+<script src="js/viewer/20-env-camera.js"></script>
+<script src="js/viewer/30-model.js"></script>
+<script src="js/viewer/40-expressions.js"></script>
+<script src="js/viewer/50-motions.js"></script>
+<script src="js/viewer/60-assets.js"></script>
+<script src="js/viewer/70-settings.js"></script>
+<script src="js/viewer/80-input.js"></script>
+<script src="js/viewer/90-modes.js"></script>
+<script src="js/viewer/99-loop.js"></script>
+</body>
+</html>

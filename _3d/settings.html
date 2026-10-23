@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>纳西妲桌宠 · 调整台</title>
+<link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="layout">
+
+  <!-- ============ 左栏：部件（可收起）============ -->
+  <aside class="side" id="side-left">
+    <div class="side-head"><span class="side-title" id="ltitle">部件</span>
+      <div class="ltabs">
+        <button class="ltab on" data-lpane="parts">部件</button>
+        <button class="ltab" data-lpane="expr">表情</button>
+      </div>
+      <button class="fold" id="fold-left" title="收起 / 展开">‹ 收起</button></div>
+    <div class="side-rail" id="rail-left">部件 ›</div>
+    <div class="side-body">
+      <div class="card" id="card-parts" style="display:none">
+        <h2>部件 <span>按部位分页 · 点图标切换显示/隐藏 ✅</span></h2>
+        <div id="outfit-box" style="display:flex;gap:10px;align-items:center;padding:10px 0 12px;border-bottom:1px solid #1e242e;flex-wrap:wrap"></div>
+        <div id="parts-box"></div>
+        <p class="note">按部位分页（全部 / 头部 / 手部 / 腿部 / 上装 / 下装 / 背饰 / 其他 / 主体），点图标切换显示；<b>灰色 = 当前不显示</b> ✅<br>
+           顶部「⚙ 工具 &amp; 套装」可下拉：搜索 / 全部显示 / 全部隐藏 / 一键清空（只留主体）/ 套装预设管理；<br>
+           图标放在 <b>_3d/images/&lt;部件名&gt;.png</b>（缺图自动用首字占位，不会破版）✅<br>
+           只影响【显示】—— 骨骼与物理照旧（隐藏不会穿模 ✅）</p>
+      </div>
+
+      <!-- ★ 2026-10-17 新增：表情（与「部件」页签切换，风格同右栏 参数/动作测试）-->
+      <div class="card" id="card-expr" style="display:none">
+        <h2>表情 <span>拖动即生效（口型 / 嘴形 / 眼睛 / 情绪 / 视线）✅</span></h2>
+        <div id="expr-box"><p class="note">读取中…（需要桌宠在运行，表情名单由桌宠上报）</p></div>
+        <p class="note">这些是模型自带的 MMD 表情 morph（日式标准名）。滑杆写进
+           <b>pet_settings.json 的 expr</b>，桌宠每帧套用 → 拖动实时生效；<br>
+           「全部归零」只清表情，不影响眨眼逻辑与骨骼动作；多个表情叠加时注意总权重别超过 1 ✅</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ 中栏：展示人物（大视口 —— 标题压成一行，上下不留多余文字 ✅）============ -->
+  <main class="center">
+    <div class="top">
+      <h1>纳西妲桌宠 · 调整台<span class="dot" id="dot"></span></h1>
+      <p class="hint">滑动即生效 · 自动保存到 <code>_3d/pet_settings.json</code> · 拆装部件时视口实时同步</p>
+    </div>
+    <div class="card viewcard">
+      <div class="viewbox"><iframe id="viewer" title="人物展示"></iframe></div>
+      <!-- ★ 2026-10-18：iframe 每次加载都带时间戳版本号
+           —— 以前写死 ?v=20261017h，改了 viewer.html 后 Ctrl+Shift+R 也不会刷新 iframe，
+              导致「我这边改了、你那边还是旧的」（曾表现为：白模/线框正常，渲染/三渲二全空）✅ -->
+      <script>(function () {
+        try { document.getElementById('viewer').src = 'viewer.html?v=' + Date.now(); } catch (e) {}
+      })();</script>
+    </div>
+  </main>
+
+  <!-- ============ 右栏：其余参数（可收起）============ -->
+  <aside class="side" id="side-right">
+    <div class="side-head"><span class="side-title" id="rtitle">参数</span>
+      <div class="ptabs">
+        <button class="ptab on" data-pane="param">参数</button>
+        <button class="ptab" data-pane="test">动作测试</button>
+        <button class="ptab" data-pane="render">渲染</button>
+      </div>
+      <button class="fold" id="fold-right" title="收起 / 展开">收起 ›</button></div>
+    <div class="side-rail" id="rail-right">‹ 参数</div>
+    <div class="side-body">
+
+  <div id="pane-param">
+
+  <div class="card">
+    <h2>相机 / 环境</h2>
+    <div class="row"><label>整体亮度</label><input type="range" data-k="brightness" min="0.4" max="1.6" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>环境光</label><input type="range" data-k="ambient" min="0" max="1.2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>主光（左上）</label><input type="range" data-k="key" min="0" max="1.2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>补光（右下）</label><input type="range" data-k="fill" min="0" max="1.2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>半球光</label><input type="range" data-k="hemi" min="0" max="1.2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>模型大小(镜头)</label><input type="range" data-k="size" min="0.5" max="2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>模型大小(本体)</label><input type="range" data-k="meshScale" min="0.5" max="1.6" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <!-- ★ 2026-10-12 用户要求：桌面端相机可调（追加进本卡；卡标题已改为「相机 / 环境」）✅
+         · 默认值 = 现象（俯仰 0° / 上下 -0.08 / 左右 0° / 视场角 30°）→ 不拖就是原样 ✅
+         · 远近仍是上面的「模型大小(镜头)」，不重复放 ✅ -->
+    <div class="row"><label>视角俯仰</label><input type="range" data-k="camPitch" min="-30" max="30" step="1"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>取景上下</label><input type="range" data-k="camY" min="-0.2" max="0.2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>视角左右</label><input type="range" data-k="camYaw" min="-30" max="30" step="1"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>视场角(透视)</label><input type="range" data-k="camFov" min="20" max="50" step="0.5"><span class="val"></span><button class="rst">↺</button></div>
+  </div>
+
+  <div class="card">
+    <h2>物理 <span>衣物 / 头发摆动</span></h2>
+    <div class="sw"><span class="box" id="sw-physics"></span><label>开启物理效果</label></div>
+    <div class="row"><label>重力强度</label>
+      <div class="seg" id="seg-gravity">
+        <button data-v="-5">弱</button><button data-v="-10">中</button><button data-v="-15">强</button>
+        <button data-v="0">零</button>
+      </div><span class="val"></span></div>
+    <div class="row"><label>定步长</label><input type="range" data-k="unitStep" min="0.004" max="0.034" step="0.0005"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>每帧步数</label><input type="range" data-k="maxStep" min="1" max="6" step="1"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>预热步数</label><input type="range" data-k="warmup" min="0" max="200" step="5"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>帧率上限</label><input type="range" data-k="maxFps" min="0" max="120" step="5"><span class="val"></span><button class="rst">↺</button></div>
+    <p class="note">⚠️ 定步长只能往细调（1/65 → 1/120）✅ 往大（1/30）会让衣物翻飞 ✅<br>
+       ⚠️ 定步长 / 步数 / 预热 是「建物理时」读的 → 改完切一次动作（或重开）才完全生效 ✅</p>
+  </div>
+
+  <div class="card">
+    <h2>拖动惯性 <span>拖桌宠时衣物 / 人体跟着甩</span></h2>
+    <div class="row"><label>拖动力度</label><input type="range" data-k="dragInertia" min="0" max="300" step="1"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>余劲衰减</label><input type="range" data-k="dragDecay" min="0.3" max="0.98" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>绕抓取点摆动</label><input type="range" data-k="dragTilt" min="-3" max="3" step="0.1"><span class="val"></span><button class="rst">↺</button></div>
+  </div>
+
+  <div class="card">
+    <h2>视线 / 行为</h2>
+    <div class="row"><label>跟踪范围</label><input type="range" data-k="trackRange" min="0" max="2000" step="25"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>头部跟随</label><input type="range" data-k="gazeHead" min="0" max="2.5" step="0.05"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>眼球跟随</label><input type="range" data-k="gazeEye" min="0" max="2.5" step="0.05"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>呼吸 / 微摆</label><input type="range" data-k="breath" min="0" max="3" step="0.05"><span class="val"></span><button class="rst">↺</button></div>
+  </div>
+
+  </div><!-- /pane-param -->
+
+  <!-- ============ 「动作测试」页签内容（★ 2026-10-13 用户要求新增）============
+       目标：以后加新动作时，在这里【当场】看出该怎么配（IK 开关 / 腿靠哪条链），
+             并可微调骨骼、即时在中央视口看效果 —— 不用再靠猜 ✅
+       安全：只读写内存里的姿态，不碰任何 .vmd / .blend ✅
+       ==================================================================== -->
+  <div id="pane-test" style="display:none">
+
+    <div class="card">
+      <h2>当前动作 <span id="t-name">—</span></h2>
+      <div class="diag" id="t-diag">载入动作后自动诊断…</div>
+      <p class="note">诊断 = 扫全部骨骼，判断腿部由【FK / D 链 / IK】哪条驱动。
+        ⚠️ 只对「腿部有关键动作」的动作有意义；腿没动的动作显示“无动作”属正常 ✅</p>
+    </div>
+
+    <div class="card">
+      <h2>链开关 <span>按下即时生效</span></h2>
+      <div class="sw3">
+        <button id="t-ik">足 IK<span class="s" id="t-ik-s">—</span></button>
+        <button id="t-grant">付与<span class="s" id="t-grant-s">—</span></button>
+        <button id="t-phys">物理<span class="s" id="t-phys-s">—</span></button>
+      </div>
+      <p class="note">按一下就作用于中央视口，可来回切着对比（这就是“新动作该开哪个”的实测手段）✅<br>
+        ⚠️ 切完画面若没变：点下面「重放当前帧」✅</p>
+      <div class="row" style="grid-template-columns:1fr 1fr;gap:10px">
+        <button class="act" id="t-replay">重放当前帧</button>
+        <button class="act" id="t-apply">套用建议 → motions.js</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>骨骼 <span id="t-count"></span></h2>
+      <div class="sw" style="padding:0 0 5px">
+        <span class="box" id="t-freeze"></span>
+        <label>❄ 冻结姿态（改骨骼前必须开）</label>
+      </div>
+      <p class="note" style="margin-top:0">⚠️ 不冻结时，动画 / IK / 付与 每帧都会把骨骼算回去 ——
+        尤其 <b style="color:#c79bf0">D 链</b> 的值是「付与」算出来的，不冻结<b>拖滑块完全看不到变化</b> ✅</p>
+      <input class="bsearch" id="t-search" placeholder="搜索骨骼名…（如 膝 / D / IK）">
+      <div class="sw" style="padding:9px 0 1px">
+        <span class="box" id="t-hot"></span><label>只看有值的骨</label>
+      </div>
+      <div class="blist" id="t-list"></div>
+      <p class="note">标签 = 该骨所属链：<b style="color:#7cc4f0">FK</b> /
+        <b style="color:#c79bf0">D 链</b> / <b style="color:#f0c674">IK</b>。
+        蓝色数值 = 有值，灰色 = 恒等 ✅</p>
+    </div>
+
+    <div class="card" id="t-editcard" style="display:none">
+      <h2 id="t-edtitle">选中骨骼</h2>
+      <!-- ★ 未固定改动提示条（用户要求：离开/换骨骼时提醒）✅ -->
+      <div id="t-dirty" class="warn" style="display:none"></div>
+      <div class="row"><label>旋转 X</label>
+        <input type="range" class="tr" id="t-rx" min="-180" max="180" step="0.5">
+        <input class="vin" id="t-rx-v" title="可直接输入角度，回车生效"><button class="rst" id="t-rx-r">↺</button></div>
+      <div class="row"><label>旋转 Y</label>
+        <input type="range" class="tr" id="t-ry" min="-180" max="180" step="0.5">
+        <input class="vin" id="t-ry-v" title="可直接输入角度，回车生效"><button class="rst" id="t-ry-r">↺</button></div>
+      <div class="row"><label>旋转 Z</label>
+        <input type="range" class="tr" id="t-rz" min="-180" max="180" step="0.5">
+        <input class="vin" id="t-rz-v" title="可直接输入角度，回车生效"><button class="rst" id="t-rz-r">↺</button></div>
+      <div class="row" style="grid-template-columns:1fr 1fr;gap:10px">
+        <button class="act" id="t-restore-all">整帧回原值</button>
+        <button class="act" id="t-patch-add">固定到帧区间 →</button>
+      </div>
+      <div class="row" style="grid-template-columns:64px 1fr 18px 1fr;gap:8px;padding-top:2px">
+        <label style="font-size:16.5px">帧区间</label>
+        <input class="bsearch" id="t-pf" style="padding:6px 10px" placeholder="起">
+        <label style="font-size:16.5px;text-align:center">→</label>
+        <input class="bsearch" id="t-pt" style="padding:6px 10px" placeholder="止">
+      </div>
+      <div id="t-plist" class="note" style="border-left-color:var(--accent2)">（还没有固定区间）</div>
+      <p class="note">「↺」= 该轴回【本帧原值】✅<br>
+        ★ 一个姿势要保持很多帧：拖好滑块 → 填帧区间 → 点「固定到帧区间」，这段区间就都用这个值了（不必一帧一帧改）✅<br>
+        ⚠️ 区间留空 = 只固定当前这一帧 ✅</p>
+    </div>
+
+  </div><!-- /pane-test -->
+
+  <div id="pane-render" style="display:none">
+
+  <div class="card">
+    <h2>渲染设置 <span>对应 Blender 侧 kafetools 的「渲染设置」（浏览器 = EEVEE 那一路）</span></h2>
+    <div class="row"><label>渲染引擎</label>
+      <select id="r-engine">
+        <option value="render">材质渲染（贴图）</option>
+        <option value="white">白模（纯白无贴图）</option>
+        <option value="wire">线框（白模 + 线框）</option>
+        <option value="toon">三渲二（原神风 · 彩色色阶）</option>
+      </select></div>
+    <div class="row"><label>世界环境</label>
+      <select id="r-env">
+        <option value="none">无（当前灯光）</option>
+        <option value="sunset">日落</option>
+        <option value="dawn">清晨</option>
+        <option value="noon">城市（正午）</option>
+        <option value="night">夜晚</option>
+        <option value="indoor">室内</option>
+        <option value="studio">影棚（暗背景）</option>
+        <option value="forest">森林</option>
+        <option value="court">庭院</option>
+      </select></div>
+    <div class="row"><label>背景透明</label>
+      <input type="checkbox" id="r-trans"></div>
+    <div class="row"><label>曝光（ACES）</label><input type="range" data-k="exposure" min="0.5" max="2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>描边宽度</label><input type="range" data-k="outlineWidth" min="0" max="15" step="0.5"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>三渲二（桌宠）</label>
+      <input type="checkbox" id="r-toon"></div>
+    <div class="row"><label>阴影开关</label>
+      <input type="checkbox" id="r-shadow"></div>
+    <div class="row"><label>地面接影浓度</label><input type="range" data-k="shadowOpacity" min="0" max="1" step="0.02"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>阴影清晰度</label><input type="range" data-k="shadowSize" min="512" max="4096" step="256"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>对比度</label><input type="range" data-k="contrast" min="0.5" max="2" step="0.01"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>高光</label><input type="range" data-k="highlights" min="-1" max="1" step="0.02"><span class="val"></span><button class="rst">↺</button></div>
+    <div class="row"><label>阴影（暗部）</label><input type="range" data-k="shadows" min="-1" max="1" step="0.02"><span class="val"></span><button class="rst">↺</button></div>
+    <p class="note">
+      · <b>渲染引擎</b>：浏览器只有 WebGL（≈ EEVEE / Workbench），没有 Cycles 的路径追踪；<br>
+      · <b>世界环境</b>：改的是【灯光颜色 + 强度倍率 + 背景色】，和上面「整体亮度 / 环境光 / 主光…」是相乘关系，互不冲突；<br>
+      · <b>背景透明</b>：画布本来就是 alpha=0，勾上后用<b>棋盘格</b>表示透明（截图/录屏导出即真透明）；<br>
+      · 桌宠窗口那边只有「世界环境」生效（它的背景本来就透明）。</p>
+  </div>
+
+  </div><!-- /pane-render -->
+
+  <!-- ★ 底部工具条挪到这里（原来在中栏视口下方，白占一行高度 ✅）：吸底常驻，滚多久都看得见 -->
+  <footer>
+    <button class="act" id="btn-reset">全部恢复默认</button>
+    <button class="act" id="btn-export" style="color:var(--accent);border-color:#2e5a3c">导出 VMD</button>
+    <span class="state" id="state">正在连接桌宠…</span>
+  </footer>
+
+  </div><!-- /side-body -->
+  </aside>
+
+  </div><!-- /layout -->
+
+  <!-- ============ 底部通栏：动作播放条（D）—— 在 .layout 之外，宽度永远通栏；可收起 ✅ ============ -->
+  <section id="dbar">
+    <div id="dbar-row">
+      <span class="t">动作播放</span>
+      <span class="hint" title="视口内也可用 ← → 逐帧、空格 播放暂停">选动作 → 逐帧 / 拖进度</span>
+      <select id="d-sel" title="选择动作"></select>
+      <button id="d-first" title="回到首帧">|◀</button>
+      <button id="d-prev" title="上一帧（←）">◀</button>
+      <button id="d-play" title="播放 / 暂停（空格）">▶ 播放</button>
+      <button id="d-next" title="下一帧（→）">▶</button>
+      <button id="d-last" title="跳到末帧">▶|</button>
+      <input type="range" id="d-range" min="0" max="0" value="0" step="1" title="拖动 = 自由调整进度">
+      <span class="mlabel" id="d-label">帧 — / —</span>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================================
+     调整台脚本 —— 按职责拆分（经典 script，加载顺序不可调换；DOM 已在上面）
+     10. 默认值 / 状态 / 滑块
+     20. 部件面板（含套装 / 搜索 / 分页）
+     30. 表情面板
+     40. 初始化与轮询
+     50. 底部播放条
+     60. 动作测试 + 渲染设置
+     ============================================================================ -->
+<script src="js/settings/10-state.js"></script>
+<script src="js/settings/20-parts.js"></script>
+<script src="js/settings/30-expressions.js"></script>
+<script src="js/settings/40-init.js"></script>
+<script src="js/settings/50-playbar.js"></script>
+<script src="js/settings/60-action-test.js"></script>
+</body>
+</html>

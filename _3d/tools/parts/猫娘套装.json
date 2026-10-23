@@ -1,0 +1,54 @@
+{
+  "_说明": "一个部件一份配置。改完跑：python tools/add_part.py -c tools/parts/本文件.json",
+  "name": "猫娘套装",
+  "label": "猫娘套装",
+  "category": "👖 下装",
+  "source": "E:/Marvelous Designer/avatar_naxida/猫娘服装_utf8.obj",
+  "source_type": "obj",
+  "arm": "纳西妲_arm",
+  "material_prefix": "猫娘-",
+  "axis": {
+    "forward": "NEGATIVE_Z",
+    "up": "Y",
+    "scale": 0.001
+  },
+  "offset": {
+    "mode": "fixed",
+    "z_mm": 77.06
+  },
+  "materials": {
+    "from_mtl": true
+  },
+  "uv": {
+    "default": {
+      "mode": "keep"
+    },
+    "rules": [
+      {
+        "mat_prefix": "sweater正面",
+        "mode": "project",
+        "k": 0.0013,
+        "anchor": [
+          0.447,
+          0.704
+        ],
+        "anchor_z": "top30"
+      },
+      {
+        "mat_prefix": "爪子口袋",
+        "mode": "island",
+        "fill": 0.84
+      }
+    ]
+  },
+  "weights": {
+    "mode": "skin",
+    "max_bones": 4,
+    "smooth": {
+      "z_max": 0.7,
+      "radius_mm": 12,
+      "rounds": 3
+    }
+  },
+  "cloth": true
+}

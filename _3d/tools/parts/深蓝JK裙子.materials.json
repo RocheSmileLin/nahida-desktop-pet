@@ -1,0 +1,28 @@
+{
+ "name": "深蓝JK裙子",
+ "label": "深蓝JK裙子",
+ "category": "👖 下装",
+ "cloth": true,
+ "verts": 22860,
+ "faces": 44576,
+ "materials": [
+  {
+   "mat": "部件_E_79489261",
+   "faces": 42588
+  },
+  {
+   "mat": "部件_D_79489255",
+   "faces": 1928
+  },
+  {
+   "mat": "部件_H_79489273",
+   "faces": 60
+  }
+ ],
+ "z_mm": [
+  439.1,
+  708.5
+ ],
+ "built_at": "5.2.2 LTS",
+ "config": "深蓝JK裙子.json"
+}
