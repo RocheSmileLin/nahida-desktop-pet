@@ -45,17 +45,23 @@ pip install PyQt5 PyQtWebEngine
 
 ## 运行
 
+**方式 A：git clone**（仓库约 73 MB，国内直连可能较慢）
+
 ```bash
 git clone https://github.com/RocheSmileLin/nxd-desktop-pet.git
 cd nxd-desktop-pet
-
-pip install -r requirements.txt   # PyQt5 + PyQtWebEngine
-
-cd _3d
-python pet_app.py          # 带控制台，能看到 [pet] / [pet-js] 日志
-# 或
-pythonw pet_app.py         # 无控制台，日常使用
+pip install -r requirements.txt
+cd _3d && python pet_app.py
 ```
+
+**方式 B：不想用 git** —— 到 [Releases](https://github.com/RocheSmileLin/nxd-desktop-pet/releases/latest) 下载 `nxd-desktop-pet-v1.0.0.zip`（66 MB，含全部素材），解压后：
+
+```bash
+pip install -r requirements.txt
+cd _3d && python pet_app.py
+```
+
+`pet_app.py` 用 `pythonw` 启动则没有控制台窗口（日常使用）；用 `python` 启动能看到 `[pet]` / `[pet-js]` 日志，排查问题方便。
 
 启动后会在本机起一个静态服务：`http://127.0.0.1:8810`
 
