@@ -54,7 +54,7 @@ pip install -r requirements.txt
 cd _3d && python pet_app.py
 ```
 
-**方式 B：不想用 git** —— 到 [Releases](https://github.com/RocheSmileLin/nxd-desktop-pet/releases/latest) 下载 `nxd-desktop-pet-v1.0.0.zip`（66 MB，含全部素材），解压后：
+**方式 B：不想用 git** —— 到 [Releases](https://github.com/RocheSmileLin/nxd-desktop-pet/releases/latest) 下载 `nxd-desktop-pet-v1.0.0.zip`（42 MB，含全部素材），解压后：
 
 ```bash
 pip install -r requirements.txt
