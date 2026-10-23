@@ -48,13 +48,13 @@ pip install PyQt5 PyQtWebEngine
 **方式 A：git clone**（仓库约 73 MB，国内直连可能较慢）
 
 ```bash
-git clone https://github.com/RocheSmileLin/nxd-desktop-pet.git
-cd nxd-desktop-pet
+git clone https://github.com/RocheSmileLin/nahida-desktop-pet.git
+cd nahida-desktop-pet
 pip install -r requirements.txt
 cd _3d && python pet_app.py
 ```
 
-**方式 B：不想用 git** —— 到 [Releases](https://github.com/RocheSmileLin/nxd-desktop-pet/releases/latest) 下载 `nxd-desktop-pet-v1.0.0.zip`（42 MB，含全部素材），解压后：
+**方式 B：不想用 git** —— 到 [Releases](https://github.com/RocheSmileLin/nahida-desktop-pet/releases/latest) 下载 `nahida-desktop-pet-v1.0.0.zip`（42 MB，含全部素材），解压后：
 
 ```bash
 pip install -r requirements.txt
